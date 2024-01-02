@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer utilities {
+    /* Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+}
+
+:root {
+	--foreground-rgb: 0, 0, 0;
+	--background-start-rgb: 246, 246, 241, 1;
+	--background-end-rgb: 246, 246, 241, 1;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--foreground-rgb: 0, 0, 0;
+		--background-start-rgb: 246, 246, 241, 1;
+		--background-end-rgb: 246, 246, 241, 1;
+	}
+}
+
+body {
+	color: rgb(var(--foreground-rgb));
+	background: linear-gradient(
+			to bottom,
+			transparent,
+			rgb(var(--background-end-rgb))
+		)
+		rgb(var(--background-start-rgb));
+}
