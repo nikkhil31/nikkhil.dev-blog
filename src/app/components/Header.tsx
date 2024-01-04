@@ -1,18 +1,16 @@
 import Image from 'next/image'
 import React from 'react'
 
-import {gql} from '@apollo/client'
-import {getClient} from '@/core/graphql/client'
-
 import gitIcon from '@/core/images/giticon.svg'
 import mailIcon from '@/core/images/mailIcon.svg'
 import linkedinIcon from '@/core/images/linkedinIcon.svg'
 import nikhil from '@/core/images/Nikhil.png'
 import sun from '@/core/images/sun.svg'
 import Link from 'next/link'
-import { siteUrl } from '@/core/constant/env'
+import {siteUrl, social} from '@/core/constant/env'
+import fetcher from '@/core/fetch/fetcher'
 
-const GET_SERIES_LIST = gql`
+const GET_SERIES_LIST = `
 	query Publication {
 		publication(host: "${siteUrl}") {
 			seriesList(first: 5) {
@@ -28,22 +26,34 @@ const GET_SERIES_LIST = gql`
 `
 
 const Header: React.FC = async () => {
-	const {data} = await getClient().query({
-		query: GET_SERIES_LIST
-	})
+	const data = await fetcher(GET_SERIES_LIST)
 	return (
 		<>
 			<header className='flex justify-center'>
 				<div className='w-full md:w-4/5  flex justify-between h-28 items-center px-4'>
 					<ul className='hidden md:flex gap-3'>
 						<li>
-							<Image src={linkedinIcon} alt='linkedinIcon' />
+							<Link href={social.linkedin}>
+								<Image
+									src={linkedinIcon}
+									alt='linkedinIcon'
+									className='cursor-pointer'
+								/>
+							</Link>
 						</li>
 						<li>
-							<Image src={mailIcon} alt='mailIcon' />
+							<Link href={social.mail}>
+								<Image
+									src={mailIcon}
+									alt='mailIcon'
+									className='cursor-pointer'
+								/>
+							</Link>
 						</li>
 						<li>
-							<Image src={gitIcon} alt='giticon' />
+							<Link href={social.github}>
+								<Image src={gitIcon} alt='giticon' className='cursor-pointer' />
+							</Link>
 						</li>
 					</ul>
 					<Link href={'/'}>

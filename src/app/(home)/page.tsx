@@ -1,8 +1,29 @@
 import Image from 'next/image'
 import nikhil from '@/core/images/nikhil.jpg'
-import Feed from './components/Feed'
 import tech from '@/core/constant/tech'
 import Link from 'next/link'
+import Feed from './components/Feed'
+
+import type {Metadata, ResolvingMetadata} from 'next'
+import fetcher from '@/core/fetch/fetcher'
+import {GET_PAGE} from '../(cms)/[slug]/core/schema'
+
+type Props = {
+	params: {id: string}
+	searchParams: {[key: string]: string | string[] | undefined}
+}
+
+export async function generateMetadata(
+	{params, searchParams}: Props,
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const data = await fetcher(GET_PAGE('home'))
+
+	return {
+		title: data.publication.staticPage.title,
+		description: data?.publication?.staticPage?.seo?.description
+	}
+}
 
 export default function Home() {
 	return (
@@ -12,7 +33,9 @@ export default function Home() {
 			<div className='h-auto sm:h-[606px] flex-col justify-center items-center gap-12 flex'>
 				<div className='flex-col justify-start items-center gap-6 flex'>
 					<div className='text-center w-4/5 xl:w-[1200px]'>
-						<span className='text-black text-3xl sm:text-5xl font-semibold'>Hello</span>
+						<span className='text-black text-3xl sm:text-5xl font-semibold'>
+							Hello
+						</span>
 						<span className='text-black text-[32px] font-semibold'>👋</span>
 						<span className='text-black text-3xl sm:text-5xl font-semibold'>
 							{' '}
@@ -34,7 +57,10 @@ export default function Home() {
 						src={nikhil}
 						alt=''
 					/>
-					<Link href={'/about-me'} className='w-[140px] h-[46px] px-6 py-3 left-1/2 -translate-x-1/2 -bottom-6 xl:-bottom-0 absolute bg-indigo-500 rounded shadow justify-center items-center gap-2 inline-flex'>
+					<Link
+						href={'/about-me'}
+						className='w-[140px] h-[46px] px-6 py-3 left-1/2 -translate-x-1/2 -bottom-6 xl:-bottom-0 absolute bg-indigo-500 rounded shadow justify-center items-center gap-2 inline-flex'
+					>
 						<div className='text-white text-lg font-bold cursor-pointer'>
 							About Me
 						</div>

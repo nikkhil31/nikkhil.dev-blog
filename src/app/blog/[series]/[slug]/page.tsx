@@ -1,98 +1,48 @@
 import React from 'react'
 
-import {gql} from '@apollo/client'
 
 import '@/app/blog/[series]/[slug]/blogdetail.css'
 
 import gitIcon from '@/core/images/giticon.svg'
 import mailIcon from '@/core/images/mailIcon.svg'
 import linkedinIcon from '@/core/images/linkedinIcon.svg'
+import nikhil from '@/core/images/nikhil.jpg'
 import Image from 'next/image'
-import {getClient} from '@/core/graphql/client'
+
 import Link from 'next/link'
 import Breadcrumb from '@/app/components/Breadcrumb'
 import TableOfContents from '@/app/components/TableOfContents'
-import { siteUrl } from '@/core/constant/env'
+import fetcher from '@/core/fetch/fetcher'
+import {GET_BLOG_LIST, GET_DETAIL} from './core/schema'
+
+import type {Metadata, ResolvingMetadata} from 'next'
+
+type Props = {
+	params: {slug: string}
+	searchParams: {[key: string]: string | string[] | undefined}
+}
+
+export async function generateMetadata(
+	{params, searchParams}: Props,
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const data = await fetcher(GET_DETAIL(params.slug))
+
+	return {
+		title: data.publication.post.seo.title,
+		description: data.publication.post.seo.description
+	}
+}
+
 
 const Detail: React.FC<{params: {slug: string}}> = async ({params}) => {
-	const GET_DETAIL = gql`
-		query Publication {
-			publication(host: "${siteUrl}") {
-				post(slug: "${params.slug}") {
-					title
-					readTimeInMinutes
-					publishedAt
-
-					features {
-						tableOfContents {
-						  isEnabled
-						  items {
-							id
-							level
-							slug
-							title
-							parentId
-						  }
-						}
-					  }
-
-					content {
-						html
-						markdown
-					}
-					series {
-						name
-						slug
-					}
-					coverImage {
-						url
-					}
-				}
-			}
-		}
-	`
-
-	const {data} = await getClient().query({
-		query: GET_DETAIL
-	})
+	const data = await fetcher(GET_DETAIL(params.slug))
 
 	const post = data.publication.post
 
-	const {data: list} = post?.series?.slug
-		? await getClient().query({
-				query: gql`
-			query Publication {
-				publication(host: "${siteUrl}") {
-					series(slug: "${post.series.slug}") {
-						name
-						description {
-							text
-						}
-						posts(first: 3) {
-							edges {
-								node {
-									id
-									title
-									slug
-									brief
-									readTimeInMinutes
-									publishedAt
-									series {
-										name
-										slug
-									}
-									coverImage {
-										url
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		`
-		  })
-		: {data: null}
+	const list = post?.series?.slug
+		? await fetcher(GET_BLOG_LIST(post.series.slug))
+		: null
 
 	return (
 		<div className='w-4/5 xl:w-[1200px]'>
@@ -105,15 +55,19 @@ const Detail: React.FC<{params: {slug: string}}> = async ({params}) => {
 				]}
 			/>
 			<div>
-				<img
+				<Image
 					className='w-full rounded-lg shadow'
 					src={`${post.coverImage.url}?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp`}
+					alt={post?.title}
+					width={1600}
+					height={840}
 				/>
 				<div className='mt-8 flex justify-between'>
 					<div className='flex gap-3 items-center'>
-						<img
+						<Image
 							className='w-[37px] h-[37px] rounded-full'
-							src='https://via.placeholder.com/37x37'
+							src={nikhil}
+							alt='Author'
 						/>
 						<h3 className='text-neutral-900 text-base font-normal leading-normal'>
 							Nikhil Limbad
@@ -178,10 +132,12 @@ const Detail: React.FC<{params: {slug: string}}> = async ({params}) => {
 										key={article.id}
 									>
 										<div className='relative'>
-											<img
+											<Image
 												src={`${article.coverImage.url}?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp`}
 												className='w-[436px] h-[267px] rounded-lg'
 												alt={article.title}
+												width={436}
+												height={267}
 											/>
 											<span className='absolute top-0 right-0 font-semibold rounded border border-indigo-500 px-2 py-1 mt-2 mr-2 text-xs bg-black bg-opacity-40 text-white'>
 												{article?.series?.name || 'NodeJS'}

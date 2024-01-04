@@ -1,39 +1,12 @@
-import { siteUrl } from '@/core/constant/env'
-import {getClient} from '@/core/graphql/client'
-import {gql} from '@apollo/client'
-import Link from 'next/link'
 import React from 'react'
 
-const GET_FEED_LIST = gql`
-	query Publication {
-		publication(host: "${siteUrl}") {
-			posts(first: 9) {
-				edges {
-					node {
-						id
-						title
-						slug
-						brief
-						readTimeInMinutes
-						publishedAt
-						series {
-							name
-							slug
-						}
-						coverImage {
-							url
-						}
-					}
-				}
-			}
-		}
-	}
-`
+import Link from 'next/link'
+import fetcher from '@/core/fetch/fetcher'
+import {GET_FEED_LIST} from '../core/schema'
+import Image from 'next/image'
 
 const Feed: React.FC = async () => {
-	const {data} = await getClient().query({
-		query: GET_FEED_LIST
-	})
+	const data = await fetcher(GET_FEED_LIST)
 
 	return (
 		<div className='mt-28 flex flex-col justify-center items-center'>
@@ -55,10 +28,12 @@ const Feed: React.FC = async () => {
 						key={article.id}
 					>
 						<div className='relative'>
-							<img
+							<Image
 								src={`${article.coverImage.url}?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp`}
 								className='w-[436px] h-[267px] rounded-lg'
 								alt={article.title}
+								width={436}
+								height={267}
 							/>
 							<span className='absolute top-0 right-0 font-semibold rounded border border-indigo-500 px-2 py-1 mt-2 mr-2 text-xs bg-black bg-opacity-40 text-white'>
 								{article?.series?.name || 'NodeJS'}
@@ -82,7 +57,7 @@ const Feed: React.FC = async () => {
 				))}
 			</div>
 			<div className='w-[121px] h-[46px] px-6 py-3 mt-11 bg-indigo-500 rounded shadow-inner justify-center items-center gap-2 inline-flex'>
-				<button className='text-white text-lg font-bold'>More</button>
+				<Link href={'/blog'} className='text-white text-lg font-bold'>More</Link>
 			</div>
 		</div>
 	)

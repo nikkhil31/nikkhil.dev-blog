@@ -3,44 +3,32 @@ import {gql} from '@apollo/client'
 import {getClient} from '@/core/graphql/client'
 import Link from 'next/link'
 import Breadcrumb from '@/app/components/Breadcrumb'
-import { siteUrl } from '@/core/constant/env'
+import {siteUrl} from '@/core/constant/env'
+import fetcher from '@/core/fetch/fetcher'
+import GET_SERIES_LIST from './core/schema'
+
+import type {Metadata, ResolvingMetadata} from 'next'
+import Image from 'next/image'
+
+type Props = {
+	params: {series: string}
+	searchParams: {[key: string]: string | string[] | undefined}
+}
+
+export async function generateMetadata(
+	{params, searchParams}: Props,
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const data = await fetcher(GET_SERIES_LIST(params.series))
+
+	return {
+		title: data.publication.series.name,
+		description: data.publication.series.description.text
+	}
+}
 
 const Series: React.FC<{params: {series: string}}> = async ({params}) => {
-	const GET_SERIES_LIST = gql`
-		query Publication {
-			publication(host: "${siteUrl}") {
-                series(slug: "${params.series}") {
-                    name
-                    description {
-                        text
-                    }
-                    posts(first: 10) {
-                        edges {
-                            node {
-                                id
-                                title
-                                slug
-                                brief
-                                readTimeInMinutes
-                                publishedAt
-                                series {
-                                    name
-                                    slug
-                                }
-                                coverImage {
-                                    url
-                                }
-                            }
-                        }
-                    }
-                }
-			}
-		}
-	`
-
-	const {data} = await getClient().query({
-		query: GET_SERIES_LIST
-	})
+	const data = await fetcher(GET_SERIES_LIST(params.series))
 
 	return (
 		<div className='w-4/5 xl:w-[1200px]'>
@@ -52,7 +40,6 @@ const Series: React.FC<{params: {series: string}}> = async ({params}) => {
 				]}
 			/>
 			<div className='flex flex-col justify-center items-center'>
-
 				<div className='flex flex-col justify-center gap-6 items-center'>
 					<h2 className='text-neutral-900 text-2xl sm:text-[40px] font-semibold text-center'>
 						{data.publication.series.name}
@@ -70,10 +57,12 @@ const Series: React.FC<{params: {series: string}}> = async ({params}) => {
 							key={article.id}
 						>
 							<div className='relative'>
-								<img
+								<Image
 									src={`${article.coverImage.url}?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp`}
 									className='w-[436px] h-[267px] rounded-lg'
 									alt={article.title}
+									width={436}
+									height={267}
 								/>
 								<span className='absolute top-0 right-0 font-semibold rounded border border-indigo-500 px-2 py-1 mt-2 mr-2 text-xs bg-black bg-opacity-40 text-white'>
 									{article?.series?.name || 'NodeJS'}
