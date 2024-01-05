@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Quote from './components/Quote'
 import Newsletter from './components/Newsletter'
 import Footer from './components/Footer'
+import GoogleAnalytics from './components/GoogleAnalytics'
 
 const inter = Montserrat({subsets: ['latin']})
 
@@ -30,6 +31,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 					<Footer />
 				</main>
 			</body>
+			<GoogleAnalytics />
 		</html>
 	)
 }
