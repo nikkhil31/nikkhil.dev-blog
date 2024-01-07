@@ -3,12 +3,12 @@ import React from 'react'
 const Newsletter = () => {
 	return (
 		<div className='mt-12 lg:mt-28 flex flex-col items-center px-4 lg:px-0'>
-			<div className='w-4/5 xl:w-[1200px] bg-stone-200 rounded-lg flex flex-col lg:flex-row items-center p-6 lg:p-12'>
+			<div className='w-4/5 xl:w-[1200px] bg-stone-200 dark:bg-[#0F0B2C] rounded-lg flex flex-col lg:flex-row items-center p-6 lg:p-12'>
 				<div className='flex flex-col lg:flex-grow justify-start items-center lg:items-start text-center lg:text-left'>
-					<h2 className='text-2xl lg:text-4xl font-semibold mb-4'>
+					<h2 className='text-2xl lg:text-4xl font-semibold mb-4 dark:text-white'>
 						Email Newsletter
 					</h2>
-					<p className='text-neutral-700 text-sm lg:text-base font-normal'>
+					<p className='text-neutral-700 text-sm lg:text-base font-normal dark:text-[#E3E3E3]'>
 						I love building things and am periodically available for hire on all
 						types of software engineering projects.
 					</p>

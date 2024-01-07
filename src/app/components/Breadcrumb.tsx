@@ -19,14 +19,14 @@ const Breadcrumb: FC<{items:Items[]}> = ({items}) => {
 					{item.href ? (
 						<>
 							<Link
-								className='flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:focus:text-blue-500'
+								className='flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:hover:text-indigo-500 dark:text-white'
 								href={item.href}
 							>
 								{item.text}
 							</Link>
 							{index < items.length - 1 && (
 								<svg
-									className='flex-shrink-0 mx-2 overflow-visible h-4 w-4 text-gray-400 dark:text-neutral-600'
+									className='flex-shrink-0 mx-2 overflow-visible h-4 w-4 text-gray-400 dark:text-white'
 									xmlns='http://www.w3.org/2000/svg'
 									viewBox='0 0 24 24'
 									fill='none'
@@ -41,7 +41,7 @@ const Breadcrumb: FC<{items:Items[]}> = ({items}) => {
 						</>
 					) : (
 						<span
-							className='text-sm font-semibold text-gray-800 truncate'
+							className='text-sm font-semibold text-gray-800 truncate dark:text-white'
 							aria-current={index === items.length - 1 ? 'page' : undefined}
 						>
 							{item.text}

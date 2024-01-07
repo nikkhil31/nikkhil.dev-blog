@@ -11,10 +11,10 @@ const Feed: React.FC = async () => {
 	return (
 		<div className='mt-28 flex flex-col justify-center items-center'>
 			<div className='flex flex-col justify-center gap-6 items-center'>
-				<h2 className='text-neutral-900 text-2xl sm:text-[40px] font-semibold'>
+				<h2 className='text-neutral-900 dark:text-white text-2xl sm:text-[40px] font-semibold'>
 					Today’s Trendy Blog
 				</h2>
-				<p className='w-full sm:w-[538px] text-center text-neutral-700 text-sm sm:text-base'>
+				<p className='w-full sm:w-[538px] text-center dark:text-[#E3E3E3] text-neutral-700 text-sm sm:text-base'>
 					I love building things and am periodically available for hire on all
 					types of software engineering projects.
 				</p>
@@ -40,18 +40,18 @@ const Feed: React.FC = async () => {
 							</span>
 						</div>
 						<div className='flex justify-between my-2'>
-							<span className='text-xs'>
+							<span className='text-xs dark:text-[#E3E3E3]'>
 								{new Date(article.publishedAt).toLocaleDateString()}
 							</span>
-							<span className='text-xs'>
+							<span className='text-xs dark:text-[#E3E3E3]'>
 								{article.readTimeInMinutes} min read
 							</span>
 						</div>
 						<div className='my-2'>
-							<h3 className='text-2xl font-semibold'>{article.title}</h3>
+							<h3 className='text-2xl font-semibold dark:text-white'>{article.title}</h3>
 						</div>
 						<div className='my-2'>
-							<p className='text-sm font-normal'>{article.brief}</p>
+							<p className='text-sm font-normal dark:text-[#E3E3E3]'>{article.brief}</p>
 						</div>
 					</Link>
 				))}

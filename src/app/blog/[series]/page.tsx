@@ -41,10 +41,10 @@ const Series: React.FC<{params: {series: string}}> = async ({params}) => {
 			/>
 			<div className='flex flex-col justify-center items-center'>
 				<div className='flex flex-col justify-center gap-6 items-center'>
-					<h2 className='text-neutral-900 text-2xl sm:text-[40px] font-semibold text-center'>
+					<h2 className='text-neutral-900 text-2xl sm:text-[40px] font-semibold text-center dark:text-white'>
 						{data.publication.series.name}
 					</h2>
-					<p className='w-full sm:w-[538px] text-center text-neutral-700 text-sm sm:text-base'>
+					<p className='w-full sm:w-[538px] text-center text-neutral-700 text-sm sm:text-base dark:text-[#E3E3E3]'>
 						{data.publication.series.description.text}
 					</p>
 				</div>
@@ -69,18 +69,18 @@ const Series: React.FC<{params: {series: string}}> = async ({params}) => {
 								</span>
 							</div>
 							<div className='flex justify-between my-2'>
-								<span className='text-xs'>
+								<span className='text-xs dark:text-[#E3E3E3]'>
 									{new Date(article.publishedAt).toLocaleDateString()}
 								</span>
-								<span className='text-xs'>
+								<span className='text-xs dark:text-[#E3E3E3]'>
 									{article.readTimeInMinutes} min read
 								</span>
 							</div>
 							<div className='my-2'>
-								<h3 className='text-2xl font-semibold'>{article.title}</h3>
+								<h3 className='text-2xl font-semibold dark:text-white'>{article.title}</h3>
 							</div>
 							<div className='my-2'>
-								<p className='text-sm font-normal'>{article.brief}</p>
+								<p className='text-sm font-normal dark:text-[#E3E3E3]'>{article.brief}</p>
 							</div>
 						</Link>
 					))}

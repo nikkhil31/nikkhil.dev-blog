@@ -33,11 +33,11 @@ export default function Home() {
 			<div className='h-auto sm:h-[606px] flex-col justify-center items-center gap-12 flex'>
 				<div className='flex-col justify-start items-center gap-6 flex'>
 					<div className='text-center w-4/5 xl:w-[1200px]'>
-						<span className='text-black text-3xl sm:text-5xl font-semibold'>
+						<span className='text-black text-3xl sm:text-5xl font-semibold dark:text-white'>
 							Hello
 						</span>
 						<span className='text-black text-[32px] font-semibold'>👋</span>
-						<span className='text-black text-3xl sm:text-5xl font-semibold'>
+						<span className='text-black text-3xl sm:text-5xl font-semibold dark:text-white'>
 							{' '}
 							My Name Is{' '}
 						</span>
@@ -45,7 +45,7 @@ export default function Home() {
 							Nikhil Limbad
 						</span>
 					</div>
-					<div className='w-4/5 sm:w-[683px] text-center text-neutral-700 text-sm sm:text-base'>
+					<div className='w-4/5 sm:w-[683px] text-center text-neutral-700 text-sm sm:text-base dark:text-[#E3E3E3]'>
 						Experienced Full Stack Developer specializing in React, AWS, and
 						OpenAI. Passionate about creating innovative, high-quality solutions
 						for diverse industry projects.
@@ -70,10 +70,10 @@ export default function Home() {
 
 			<div className='mt-28 flex flex-col justify-center items-center'>
 				<div className='flex flex-col justify-center gap-6 items-center'>
-					<h2 className='text-neutral-900 text-2xl sm:text-[40px] font-semibold'>
+					<h2 className='text-neutral-900 text-2xl sm:text-[40px] font-semibold dark:text-white'>
 						Tech Enthusiast
 					</h2>
-					<p className='w-full sm:w-[538px] text-center text-neutral-700 text-sm sm:text-base'>
+					<p className='w-full sm:w-[538px] text-center text-neutral-700 text-sm dark:text-[#E3E3E3] sm:text-base'>
 						In the realm of technology, my core specializations focus on
 						delivering versatile and cutting-edge solutions.
 					</p>
@@ -82,10 +82,10 @@ export default function Home() {
 					{tech.map((item, index) => (
 						<div
 							key={index}
-							className='w-28 h-24 bg-white rounded-lg flex flex-col justify-center items-center'
+							className='w-28 h-24 bg-white rounded-lg dark:bg-[#0F0B2C] flex flex-col justify-center items-center'
 						>
 							<Image src={item.image} alt={item.title} />
-							<span className='mt-3'>{item.title}</span>
+							<span className='mt-3 dark:text-[#E3E3E3]'>{item.title}</span>
 						</div>
 					))}
 				</div>
