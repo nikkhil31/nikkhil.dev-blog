@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import sun from '@/core/images/sun.svg'
+import moon from '@/core/images/moon.svg'
 import Image from 'next/image'
 
 const ThemeToggle = () => {
@@ -30,7 +31,8 @@ const ThemeToggle = () => {
 
 	return (
 		<button onClick={toggleTheme}>
-			<Image src={sun} alt='darkmode' />
+			<Image src={sun} alt='darkmode' className='hidden dark:block' />
+			<Image src={moon} alt='darkmode' className='block dark:hidden' />
 		</button>
 	)
 }
