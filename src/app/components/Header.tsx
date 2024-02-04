@@ -1,4 +1,3 @@
-'use client'
 import Image from 'next/image'
 import React from 'react'
 
@@ -126,7 +125,7 @@ const Header: React.FC = async () => {
 					</Link>
 					<div className='flex items-center gap-6'>
 						<div className='hidden w-[121px] h-[46px] px-6 py-3 bg-indigo-500 rounded shadow-inner justify-center items-center gap-2 lg:inline-flex'>
-							<button className='text-white text-lg font-bold'>Hire Me</button>
+							<Link href={social.mail}  className='text-white text-lg font-bold'>Hire Me</Link>
 						</div>
 						<ThemeToggle />
 					</div>

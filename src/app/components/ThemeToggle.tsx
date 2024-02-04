@@ -1,39 +1,20 @@
+'use client'
 import React, {useEffect, useState} from 'react'
 import sun from '@/core/images/sun.svg'
 import moon from '@/core/images/moon.svg'
 import Image from 'next/image'
+import {useTheme} from 'next-themes'
 
 const ThemeToggle = () => {
-	const [darkMode, setDarkMode] = useState(false)
-
-	useEffect(() => {
-		if (
-			localStorage.theme === 'dark' ||
-			(!('theme' in localStorage) &&
-				window.matchMedia('(prefers-color-scheme: dark)').matches)
-		) {
-			document.documentElement.classList.add('dark')
-		} else {
-			document.documentElement.classList.remove('dark')
-		}
-	}, [])
-
-	const toggleTheme = () => {
-		setDarkMode(!darkMode)
-		if (darkMode) {
-			localStorage.theme = 'light'
-			document.documentElement.classList.remove('dark')
-		} else {
-			localStorage.theme = 'dark'
-			document.documentElement.classList.add('dark')
-		}
-	}
+	const {theme, setTheme} = useTheme()
 
 	return (
-		<button onClick={toggleTheme}>
-			<Image src={sun} alt='darkmode' className='hidden dark:block' />
-			<Image src={moon} alt='darkmode' className='block dark:hidden' />
-		</button>
+		<>
+			<button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className='w-8 h-8'>
+				<Image src={sun} alt='darkmode' className='hidden dark:block' />
+				<Image src={moon} alt='darkmode' className='block dark:hidden' />
+			</button>
+		</>
 	)
 }
 

@@ -7,6 +7,7 @@ import Feed from './components/Feed'
 import type {Metadata, ResolvingMetadata} from 'next'
 import fetcher from '@/core/fetch/fetcher'
 import {GET_PAGE} from '../(cms)/[slug]/core/schema'
+import {Suspense} from 'react'
 
 type Props = {
 	params: {id: string}
@@ -90,8 +91,9 @@ export default function Home() {
 					))}
 				</div>
 			</div>
-
-			<Feed />
+			<Suspense fallback={<p>Loading feed...</p>}>
+				<Feed />
+			</Suspense>
 		</>
 	)
 }
