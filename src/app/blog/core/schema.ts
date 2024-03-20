@@ -4,7 +4,7 @@ import {siteUrl} from '@/core/constant/env'
 export const GET_BLOG_LIST = `
 	query Publication {
 		publication(host: "${siteUrl}") {
-			posts(first: 19) {
+			posts(first: 20) {
 				edges {
 					node {
 						id

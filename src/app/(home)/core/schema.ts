@@ -4,7 +4,7 @@ import {siteUrl} from '@/core/constant/env'
 export const GET_FEED_LIST = `
   query Publication {
     publication(host: "${siteUrl}") {
-      posts(first: 10) {
+      posts(first: 9) {
         edges {
           node {
             id
