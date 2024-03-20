@@ -4,6 +4,7 @@ const GET_SERIES_LIST = (slug:string) =>  `
 		query Publication {
 			publication(host: "${siteUrl}") {
                 series(slug: "${slug}") {
+                    id
                     name
                     description {
                         text
