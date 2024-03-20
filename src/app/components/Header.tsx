@@ -15,7 +15,7 @@ import ThemeToggle from './ThemeToggle'
 const GET_SERIES_LIST = `
 	query Publication {
 		publication(host: "${siteUrl}") {
-			seriesList(first: 6) {
+			seriesList(first: 7) {
 				edges {
 					node {
 						name
