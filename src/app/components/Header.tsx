@@ -18,6 +18,7 @@ const GET_SERIES_LIST = `
 			seriesList(first: 7) {
 				edges {
 					node {
+     						id
 						name
 						slug
 					}
