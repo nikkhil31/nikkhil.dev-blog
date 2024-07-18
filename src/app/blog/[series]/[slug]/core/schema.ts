@@ -4,6 +4,7 @@ export const GET_DETAIL = (slug: string) => `
 		query Publication {
 			publication(host: "${siteUrl}") {
 				post(slug: "${slug}") {
+					id
 					title
 					readTimeInMinutes
 					publishedAt
