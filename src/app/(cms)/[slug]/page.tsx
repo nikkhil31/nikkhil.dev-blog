@@ -3,6 +3,8 @@ import fetcher from '@/core/fetch/fetcher'
 import Breadcrumb from '@/app/components/Breadcrumb'
 import {GET_PAGE} from './core/schema'
 import {notFound} from 'next/navigation'
+import '@/app/blog/[series]/[slug]/blogdetail.css'
+
 
 import type {Metadata, ResolvingMetadata} from 'next'
 
@@ -54,11 +56,11 @@ const CMS: React.FC<{params: {slug: string}}> = async ({params}) => {
 				</div>
 
 				<div
-					className='mt-8 dark:text-[#E3E3E3]'
+					className='prose prose-lg mt-8 mx-auto mb-10 min-h-30 break-words dark:prose-dark xl:prose-xl'
 					dangerouslySetInnerHTML={{
 						__html: data.publication.staticPage.content.html
 					}}
-				></div>
+				/>
 			</Suspense>
 		</div>
 	)
