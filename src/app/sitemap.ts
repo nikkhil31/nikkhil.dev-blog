@@ -4,7 +4,7 @@ import {MetadataRoute} from 'next'
 
 const GET_SITEMAP = `
 query Publication {
-  publication(host: "nikkhil.dev") {
+  publication(host: "${siteUrl}") {
     seriesList(first: 19) {
       edges {
         node {
