@@ -10,6 +10,7 @@ import GET_SERIES_LIST from './core/schema'
 import type {Metadata, ResolvingMetadata} from 'next'
 import Image from 'next/image'
 import Detail from './[slug]/page'
+import { GET_DETAIL } from './[slug]/core/schema'
 
 type Props = {
 	params: {series: string}
@@ -21,10 +22,11 @@ export async function generateMetadata(
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
 	const data = await fetcher(GET_SERIES_LIST(params.series))
+	const detail = await fetcher(GET_DETAIL(params.series))
 
 	return {
-		title: data.publication?.series?.name || '',
-		description: data.publication?.series?.description.text || ''
+		title: data.publication?.series?.name || detail.publication.post.seo.title || '',
+		description: data.publication?.series?.description.text || detail.publication.post.seo.description || ''
 	}
 }
 
