@@ -1,4 +1,4 @@
-import {siteUrl} from '@/core/constant/env'
+import {host, siteUrl} from '@/core/constant/env'
 import fetcher from '@/core/fetch/fetcher'
 import {MetadataRoute} from 'next'
 
@@ -33,37 +33,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const data = await fetcher(GET_SITEMAP)
 	let sitemapEntries: MetadataRoute.Sitemap = [
 		{
-			url: `https://${siteUrl}`,
+			url: `https://${host}`,
 			lastModified: new Date(),
 			changeFrequency: 'yearly',
 			priority: 1
 		},
 		{
-			url: `https://${siteUrl}/about-me`,
+			url: `https://${host}/about-me`,
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
 			priority: 0.8
 		},
 		{
-			url: `https://${siteUrl}/blog`,
+			url: `https://${host}/blog`,
 			lastModified: new Date(),
 			changeFrequency: 'weekly',
 			priority: 0.8
 		},
 		{
-			url: `https://${siteUrl}/contact`,
+			url: `https://${host}/contact`,
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
 			priority: 0.8
 		},
 		{
-			url: `https://${siteUrl}/privacy-policy`,
+			url: `https://${host}/privacy-policy`,
 			lastModified: new Date(),
 			changeFrequency: 'yearly',
 			priority: 0.7
 		},
 		{
-			url: `https://${siteUrl}/term-of-use`,
+			url: `https://${host}/term-of-use`,
 			lastModified: new Date(),
 			changeFrequency: 'yearly',
 			priority: 0.7
@@ -72,7 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 	data.publication.seriesList.edges.forEach((series: any) => {
 		sitemapEntries.push({
-			url: `https://${siteUrl}/blog/${series.node.slug}`,
+			url: `https://${host}/blog/${series.node.slug}`,
 			lastModified: new Date(),
 			changeFrequency: 'weekly',
 			priority: 0.8
@@ -85,7 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			)
 			.forEach((post: {node: {slug: any}}) => {
 				sitemapEntries.push({
-					url: `https://${siteUrl}/blog/${series.node.slug}/${post.node.slug}`,
+					url: `https://${host}/blog/${series.node.slug}/${post.node.slug}`,
 					lastModified: new Date(),
 					changeFrequency: 'weekly',
 					priority: 0.6
