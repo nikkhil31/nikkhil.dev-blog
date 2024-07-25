@@ -9,6 +9,7 @@ import GET_SERIES_LIST from './core/schema'
 
 import type {Metadata, ResolvingMetadata} from 'next'
 import Image from 'next/image'
+import Detail from './[slug]/page'
 
 type Props = {
 	params: {series: string}
@@ -22,15 +23,15 @@ export async function generateMetadata(
 	const data = await fetcher(GET_SERIES_LIST(params.series))
 
 	return {
-		title: data.publication.series.name,
-		description: data.publication.series.description.text
+		title: data.publication?.series?.name || '',
+		description: data.publication?.series?.description.text || ''
 	}
 }
 
 const Series: React.FC<{params: {series: string}}> = async ({params}) => {
 	const data = await fetcher(GET_SERIES_LIST(params.series))
 
-	return (
+	return data.publication?.series ? (
 		<div className='w-4/5 xl:w-[1200px]'>
 			<Suspense fallback={<p>Loading feed...</p>}>
 				<Breadcrumb
@@ -93,6 +94,8 @@ const Series: React.FC<{params: {series: string}}> = async ({params}) => {
 				</div>
 			</Suspense>
 		</div>
+	) : (
+		<Detail params={{slug:params.series}} />
 	)
 }
 
