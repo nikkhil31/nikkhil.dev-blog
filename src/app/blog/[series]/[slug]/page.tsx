@@ -15,6 +15,7 @@ import fetcher from '@/core/fetch/fetcher'
 import {GET_BLOG_LIST, GET_DETAIL} from './core/schema'
 
 import type {Metadata, ResolvingMetadata} from 'next'
+import { notFound } from 'next/navigation'
 
 type Props = {
 	params: {slug: string}
@@ -41,6 +42,10 @@ const Detail: React.FC<{params: {slug: string}}> = async ({params}) => {
 	const list = post?.series?.slug
 		? await fetcher(GET_BLOG_LIST(post.series.slug))
 		: null
+
+	if(!post?.title) {
+		notFound()
+	}
 
 	return (
 		<div className='w-4/5 xl:w-[1200px]'>
